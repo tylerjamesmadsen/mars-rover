@@ -1,0 +1,56 @@
+@startuml MarsRover Class Diagram
+
+enum CompassPoint {
+  + N
+  + S
+  + E
+  + W
+}
+
+enum Direction {
+  + L
+  + R
+}
+
+class Grid2D {
+  - boundaryX : uint
+  - boundaryY : uint
+  --
+  + Grid2D(boundX:uint, boundY: uint) : void
+  + ToString() : string
+}
+
+class Rover {
+  - id: guid
+  - heading : CompassPoint
+  - positionX : uint
+  - positionY : uint
+  --
+  + Rover(id : guid, initialHeading : CompassPoint, initialPosition : uint[])
+  + CanMove(boundaries : uint[]) : bool
+  + Move() : void
+  + Turn(direction : Direction)
+  + ToString() : string
+}
+
+class CommandCenter {
+  - Plateau : Grid2D
+  - Rovers : Rover[]
+  --
+  + GetInput() : string[]
+  + SendInstructions() : void
+  + GetFeedback() : string[]
+}
+
+class Program {
+  + GetInput() : string[]
+  + BuildPlateau() : void
+  + 
+}
+
+CommandCenter o-- Grid2D
+CommandCenter o-- Rover
+Rover o-- CompassPoint
+Rover o-- Direction
+
+@enduml
